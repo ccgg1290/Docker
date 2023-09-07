@@ -1,0 +1,40 @@
+-- comandos para intalar vim en contendor ubuntu
+
+apt-get update
+
+apt-get install apt-file
+
+apt-file update
+
+apt-get install vim     # now finally this will work !!!
+
+
+
+-- INSTALAR NODE JS
+
+sudo apt install nodejs
+sudo apt install npm
+-- pagina web sencilla
+
+
+
+
+
+
+docker exec -it mycontainer bash
+
+docker run -d --name contendor-ubuntu -p 9000:9000 ubuntu
+
+
+docker rm -f portal-nginx_pre
+docker rmi registry.gitlab.com/moviiredsas/moviired-portal/app:4.0.0
+docker pull registry.gitlab.com/moviiredsas/moviired-portal/nginx:4.0.0
+docker run -d --name portal-nginx_pre -p 4219:80 -v /app/config/portal/tendero_preproduccion/nginx_preproduccion:/etc/nginx/conf.d registry.gitlab.com/moviiredsas/moviired-portal/nginx:4.0.0
+
+
+
+
+docker rm -f portal-tendero_pre
+docker rmi registry.gitlab.com/moviiredsas/moviired-portal/nginx:4.0.0
+docker pull registry.gitlab.com/moviiredsas/users-registry-bu-portal-registro-manual:1.0.4
+docker run -d --name portal-tendero_pre -p 40007:9000 -v /app/config/portal/tendero_preproduccion/.env:/var/www/.env  --mount source=logs_portal,target=/var/www/storage/logs --mount source=nfs_tirillas,target=/var/www/public/uploadsSFTP/ registry.gitlab.com/moviiredsas/moviired-portal/app:4.0.0
